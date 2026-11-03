@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>My Portfolio</title>
+<style>
+  body { font-family: Arial; padding: 20px; background: white; color: black; }
+  section { border: 1px solid gray; padding: 15px; margin-bottom: 15px; }
+  img { width: 150px; }
+  .panel { display: none; }
+  .title { cursor: pointer; background: lightgray; padding: 8px; }
+  .bar-bg { background: lightgray; width: 300px; }
+  .bar { background: blue; height: 20px; width: 0; }
+</style>
+</head>
+<body>
+
+<!-- Task 1 -->
+<section id="profile">
+  <h1 id="headline"></h1>
+  <p id="greeting"></p>
+  <p class="intro"></p>
+  <h2>Welcome to My Portfolio</h2>
+  <button id="lightBtn">Light Theme</button>
+  <button id="darkBtn">Dark Theme</button>
+</section>
+
+<!-- Task 2 -->
+<section id="about">
+  <h2>About Me</h2>
+  <p>I am a student. I like web development.</p>
+  <p id="status">Currently learning jQuery!</p>
+  <ul id="facts">
+    <li>I love music.</li>
+    <li>I like traveling.</li>
+    <li>My goal is to be a front-end developer.</li>
+  </ul>
+  <button id="hideBtn">Hide</button>
+  <button id="showBtn">Show</button>
+  <button id="toggleBtn">Toggle</button>
+</section>
+
+<!-- Task 3 -->
+<section id="gallery">
+  <h2>Gallery</h2>
+  <img src="images/profile.svg" alt="Profile">
+  <img src="images/hobby.svg" alt="Hobby">
+  <br>
+  <button id="fadeInBtn">Fade In</button>
+  <button id="fadeOutBtn">Fade Out</button>
+  <button id="fadeToggleBtn">Fade Toggle</button>
+</section>
+
+<!-- Task 4 -->
+<section id="favorites">
+  <h2>My Favorites</h2>
+  <h3 class="title">My Favorite Music</h3>
+  <div class="panel">Write your favorite music here.</div>
+  <h3 class="title">My Favorite Movie</h3>
+  <div class="panel">Write your favorite movie here.</div>
+  <h3 class="title">My Favorite Subject</h3>
+  <div class="panel">Write your favorite subject here.</div>
+  <button id="openAllBtn">Open All</button>
+  <button id="closeAllBtn">Close All</button>
+</section>
+
+<!-- Task 5 -->
+<section id="skills">
+  <h2>Skills</h2>
+  <ul id="skillList">
+    <li>HTML</li>
+    <li>CSS</li>
+    <li>JavaScript</li>
+    <li>jQuery</li>
+  </ul>
+  <input type="text" id="skillInput" placeholder="New skill">
+  <button id="addBtn">Add Skill</button>
+  <button id="prependBtn">Prepend Skill</button>
+  <button id="removeBtn">Remove Skill</button>
+  <p id="error" style="color:red"></p>
+</section>
+
+<!-- Task 6 -->
+<section id="links">
+  <h2>Social Link</h2>
+  <a id="socialLink" href="https://github.com">GitHub</a>
+  <br>
+  <button id="linkBtn">Change Link</button>
+</section>
+
+<!-- Task 7 -->
+<section id="form">
+  <h2>Form</h2>
+  <input type="text" id="nameInput" placeholder="Name">
+  <input type="text" id="emailInput" placeholder="Email">
+  <p>Name: <span id="nameOut"></span></p>
+  <p>Email: <span id="emailOut"></span></p>
+</section>
+
+<!-- Task 8 -->
+<section id="bars">
+  <h2>Skill Bars</h2>
+  <p>HTML</p>
+  <div class="bar-bg"><div class="bar" data-level="90"></div></div>
+  <p>CSS</p>
+  <div class="bar-bg"><div class="bar" data-level="70"></div></div>
+  <p>JavaScript</p>
+  <div class="bar-bg"><div class="bar" data-level="50"></div></div>
+  <p>jQuery</p>
+  <div class="bar-bg"><div class="bar" data-level="30"></div></div>
+  <br>
+  <button id="animateBtn">Animate My Skills</button>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+$(document).ready(function () {
+
+  // Task 0
+  console.log("jQuery is ready!");
+
+  // Task 1
+  $("#headline").text("Aspiring Front-End Developer");
+  $("#greeting").html("Hello, my name is <b>Your Name</b>!");
+  $(".intro").text("I am a student who loves web pages.");
+  $("h2").css("color", "blue");
+
+  $("#lightBtn").click(function () {
+    $("body").css({ "background": "white", "color": "black" });
+  });
+  $("#darkBtn").click(function () {
+    $("body").css({ "background": "black", "color": "white" });
+  });
+
+  // Task 2
+  $("#hideBtn").click(function () { $("#status, #facts").hide(); });
+  $("#showBtn").click(function () { $("#status, #facts").show(); });
+  $("#toggleBtn").click(function () { $("#status, #facts").toggle(); });
+
+  // Task 3
+  $("#fadeInBtn").click(function () { $("img").fadeIn(); });
+  $("#fadeOutBtn").click(function () { $("img").fadeOut(); });
+  $("#fadeToggleBtn").click(function () { $("img").fadeToggle(); });
+
+  // Task 4
+  $(".title").click(function () { $(this).next().slideToggle(); });
+  $("#openAllBtn").click(function () { $(".panel").slideDown(); });
+  $("#closeAllBtn").click(function () { $(".panel").slideUp(); });
+
+  // Task 5
+  $("#addBtn").click(function () {
+    var skill = $("#skillInput").val().trim();
+    if (skill == "") { $("#error").text("Enter a skill!"); return; }
+    $("#error").text("");
+    $("#skillList").append("<li>" + skill + "</li>");
+    $("#skillInput").val("");
+  });
+  $("#prependBtn").click(function () {
+    var skill = $("#skillInput").val().trim();
+    if (skill == "") { $("#error").text("Enter a skill!"); return; }
+    $("#error").text("");
+    $("#skillList").prepend("<li>" + skill + "</li>");
+    $("#skillInput").val("");
+  });
+  $("#removeBtn").click(function () {
+    $("#skillList li:last").remove();
+  });
+
+  // Task 6
+  var changed = false;
+  $("#linkBtn").click(function () {
+    if (changed) {
+      $("#socialLink").attr("href", "https://github.com").text("GitHub");
+    } else {
+      $("#socialLink").attr("href", "https://linkedin.com").text("LinkedIn");
+    }
+    changed = !changed;
+  });
+
+  // Task 7
+  $("#nameInput").on("input", function () { $("#nameOut").text($(this).val()); });
+  $("#emailInput").on("input", function () { $("#emailOut").text($(this).val()); });
+
+  // Task 8
+  var opened = false;
+  $("#animateBtn").click(function () {
+    $(".bar").each(function () {
+      if (opened) {
+        $(this).animate({ width: "0%" }, 1000);
+      } else {
+        $(this).animate({ width: $(this).data("level") + "%" }, 1000);
+      }
+    });
+    opened = !opened;
+  });
+
+});
+</script>
+</body>
+</html>
